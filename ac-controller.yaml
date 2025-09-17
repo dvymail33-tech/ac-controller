@@ -20,14 +20,8 @@ remote_transmitter:
   pin: D2
   carrier_duty_percent: 50%
 
+# ИСПОЛЬЗУЕМ СТАРЫЙ, НАДЕЖНЫЙ КОМПОНЕНТ
 climate:
-  - platform: template
+  - platform: ir_remote_climate
     name: "Кондиционер LG"
-    id: lg_konder
-    lambda: |-
-      it.protocol = "LG";
-      it.publish_state();
-    control_action:
-      - remote_transmitter.transmit_lg:
-          mode: !lambda return call.get_mode();
-          temperature: !lambda return call.get_target_temperature();
+    protocol: LG
