@@ -1,0 +1,22 @@
+name: Build ESPHome firmware
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install ESPHome
+        run: pip install esphome
+      - name: Compile firmware
+        run: esphome compile ac-controller.yaml
+      - name: Upload firmware binary
+        uses: actions/upload-artifact@v2
+        with:
+          name: firmware
+          path: ac-controller.yaml.bin
